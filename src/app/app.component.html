@@ -176,13 +176,13 @@
     <div class="demo-group-content">
 
         <div class="demo">
-            <div class="demo-example" type="text" ngxTooltip tooltipArrowType="sharp">
-                sharp
+            <div class="demo-example" type="text" ngxTooltip [tooltipArrowType]="false">
+                none
             </div>
         </div>
 
         <div class="demo">
-            <div class="demo-example" type="text" ngxTooltip tooltipArrowType="round">
+            <div class="demo-example" type="text" ngxTooltip [tooltipArrowType]="roundArrow">
                 round
             </div>
         </div>
@@ -243,12 +243,6 @@
         <div class="demo">
             <div class="demo-example" type="text" [ngxTooltip]="animateOptions" tooltipAnimation="shift-toward">
                 shift-toward
-            </div>
-        </div>
-
-        <div class="demo">
-            <div class="demo-example" type="text" [ngxTooltip]="animateOptions" tooltipAnimation="fade">
-                fade
             </div>
         </div>
 

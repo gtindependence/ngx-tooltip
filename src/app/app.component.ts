@@ -1,19 +1,19 @@
 import { Component, ViewChild } from '@angular/core';
-import { TooltipOptions, TooltipDirective, TooltipService } from 'dist/ngx-tooltip';
-// import { TooltipOptions, TooltipContent } from '@teamhive/ngx-tooltip';
+import { TooltipOptions, TooltipDirective, TooltipService } from '@gtindependence/ngx-tooltip';
+import {roundArrow} from 'tippy.js'
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
 
-    animateOptions = {
-        animateFill: false
+    animateOptions: Partial<TooltipOptions> = {
+        animateFill: true
     };
 
-    customSchemeOptions: TooltipOptions = {
+    customSchemeOptions: Partial<TooltipOptions> = {
         trigger: 'manual',
         interactive: true,
         hideOnClick: false,
@@ -31,5 +31,7 @@ export class AppComponent {
 
     hideCustomSchemeTooltip() {
         this.customSchemeTooltip.hide();
-        }
     }
+
+    protected readonly roundArrow = roundArrow;
+}

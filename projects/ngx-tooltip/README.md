@@ -5,7 +5,7 @@
 
 ## Install
 ```
-npm i @teamhive/ngx-tooltip
+npm i @gtindependence/ngx-tooltip
 ```
 
 
