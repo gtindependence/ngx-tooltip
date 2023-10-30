@@ -3,20 +3,18 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 
-import { TooltipModule, TooltipOptions } from 'dist/ngx-tooltip';
-// import { TooltipModule, TooltipOptions } from '@teamhive/ngx-tooltip';
+import { TooltipModule, TooltipOptions } from '@gtindependence/ngx-tooltip';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
     TooltipModule.forRoot({
-        placement: 'top',
-        content: 'Lorem ipsum dolor',
-        // duration: 100
-    } as TooltipOptions)
+      content: 'lorem ipsom',
+      placement: 'top',
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]

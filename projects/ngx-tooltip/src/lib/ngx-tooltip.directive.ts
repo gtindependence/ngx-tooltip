@@ -17,7 +17,7 @@ import { TooltipService } from './ngx-tooltip.service';
 })
 export class TooltipDirective implements OnDestroy {
 
-    private options: TooltipOptions = {};
+    private options: TooltipOptions = {} as any;
     private tooltipInstance: TooltipInstance = null;
 
     @Input('ngxTooltip') set tooltipOptions(options: TooltipOptions) {
@@ -41,12 +41,12 @@ export class TooltipDirective implements OnDestroy {
         return this.options.content;
     }
 
-    @Input() set tooltipArrowType(arrowType: TooltipArrowType) {
+    @Input() set tooltipArrowType(arrow: TooltipArrowType) {
         this.options.arrow = true;
-        this.updateOptions({ arrowType });
+        this.updateOptions({ arrow });
     }
     get tooltipArrowType() {
-        return this.options.arrowType;
+        return this.options.arrow;
     }
 
     @Input() set tooltipMaxWidth(maxWidth: TooltipOptions['maxWidth']) {
@@ -84,13 +84,6 @@ export class TooltipDirective implements OnDestroy {
         return this.options.touch;
     }
 
-    @Input() set tooltipTouchHold(touchHold: TooltipOptions['touchHold']) {
-        this.updateOptions({ touchHold });
-    }
-    get tooltipTouchHold() {
-        return this.options.touchHold;
-    }
-
     @Input() set tooltipTheme(theme: TooltipOptions['theme']) {
         this.updateOptions({ theme });
     }
@@ -106,7 +99,7 @@ export class TooltipDirective implements OnDestroy {
     }
 
     constructor(
-        @Inject(TooltipOptionsService) private initOptions: TooltipOptions,
+        @Inject(TooltipOptionsService) private initOptions: Partial<TooltipOptions>,
         private el: ElementRef,
         private tooltipService: TooltipService,
     ) {
@@ -145,7 +138,7 @@ export class TooltipDirective implements OnDestroy {
         // set options
         if (this.state.isEnabled) {
             if (this.options.content) {
-                this.tooltipInstance.set(this.options);
+                this.tooltipInstance.setProps(this.options);
             } else {
                 this.disable(); // tooltips without content should be disabled
             }
@@ -173,7 +166,7 @@ export class TooltipDirective implements OnDestroy {
     /**
      * Cleans provided options object by deleting all `null` or `undefined` properties
      */
-    private cleanOptions(options: Partial<TooltipOptions>) {
+    private cleanOptions(options: TooltipOptions) {
         for (const prop in options) {
             if (options[prop] === null || options[prop] === undefined) {
                 delete options[prop];
@@ -187,7 +180,7 @@ export class TooltipDirective implements OnDestroy {
      * Create new `TooltipInstance` and add to collections
      */
     private create() {
-        this.tooltipInstance = tippy(this.el.nativeElement) as TooltipInstance;
+        this.tooltipInstance = tippy(this.el.nativeElement) as unknown as TooltipInstance;
         this.tooltipService.addInstance(this.tooltipInstance);
     }
 
@@ -232,7 +225,8 @@ export class TooltipDirective implements OnDestroy {
      */
     show(duration?: number) {
         if (this.tooltipInstance) {
-            this.tooltipInstance.show(duration);
+            this.tooltipInstance.setProps({duration});
+            this.tooltipInstance.show();
         }
     }
 
@@ -243,7 +237,8 @@ export class TooltipDirective implements OnDestroy {
      */
     hide(duration?: number) {
         if (this.tooltipInstance) {
-            this.tooltipInstance.hide(duration);
+            this.tooltipInstance.setProps({duration});
+            this.tooltipInstance.hide();
         }
     }
 }

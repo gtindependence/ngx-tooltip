@@ -1,10 +1,10 @@
-import { Instance, Props, Content } from 'tippy.js';
+import { Instance, Props, Content, roundArrow } from 'tippy.js';
 
 export { Placement as TooltipPlacement } from 'tippy.js';
 
-export type TooltipAnimation = 'shift-away' | 'shift-toward' | 'fade' | 'scale' | 'perspective';
+export type TooltipAnimation = string | boolean;
 
-export type TooltipArrowType = 'sharp' | 'round';
+export type TooltipArrowType = string | boolean | DocumentFragment | SVGElement;
 
 export type TooltipState = Partial<Instance['state']>;
 

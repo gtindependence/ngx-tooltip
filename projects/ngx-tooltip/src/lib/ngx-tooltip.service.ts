@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import tippy, { HideAllOptions } from 'tippy.js';
+import { hideAll, HideAllOptions } from 'tippy.js';
 import { TooltipInstance } from './ngx-tooltip.types';
 
 @Injectable()
@@ -100,16 +100,20 @@ export class TooltipService {
         if (group && this.groups.has(group)) {
             this.groups.get(group).forEach(instance => instance.hide());
         } else {
-            tippy.hideAll(options);
+            hideAll(options);
         }
     }
 
     /**
      * Shows all `TooltipInstance`s generated thus far.
+     * @param duration the duration
      * @param group group id which, if provided, causes function to affect only those instances belonging to the group.
      */
     showAll(duration?: TooltipInstance['id'], group?: TooltipInstance['group']) {
-        (this.groups.get(group) || this.instances).forEach(instance => instance.show(duration));
+        (this.groups.get(group) || this.instances).forEach(instance => {
+            instance.setProps({duration});
+            instance.show();
+        });
     }
 
     /**
